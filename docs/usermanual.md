@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# GrainAutLine user manual #
+# GrainAutLine user manual ű  #
 
 This documentation is a summary of the functions of GrainAutLine. They are divided into the following categories:
 
