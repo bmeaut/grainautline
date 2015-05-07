@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# My first „Hello World!” processor! 
+# My first „Hello World!” processor!
 
 This guide will show you how to create the new processor of yours, add some layers to it and set their properties.
 
