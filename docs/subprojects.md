@@ -10,9 +10,6 @@ Ez az oldal azokat a fő irányvonalakat foglalja össze, melyek mentén önáll
 
 Ha bármelyik érdekel, szólj! Minden téma címe előtt van egy rövid "kódnév", hogy könnyen lehessen hivatkozni rájuk.
 
-[//]: # (TODO: Feladatok részletes specifikálása, ami alapján biztonságosan fel lehet mérni, hogy akarja-e valaki.)
-TODO (+sorrend logikusabbra, néhány kép beszúrása. Később a feladatok részletesebb specifikálása, akár I/O részletes megadásával is.)
-
 * TOC
 {:toc}
 
@@ -114,6 +111,8 @@ Egy másik tipikus módszer a meghatározására, hogy a minta képen egy vonala
 
 Az ehhez kapcsolódó feladat a már elkészített szemcsehatár-rajzolatok segítségével mérések készítése és futtatása: érdemes lenne megmérni, hogy a fenti módszerekkel mért MGS mennyire megbízható. Mennyivel nagyobb például a szórása annál, mint hogyha a szemcseméret hisztogram alapján nem a maximális értékét vesszük, hanem a legnagyobb 1% eldobása után megmaradó legnagyobb értéket (99%-os percentilis).
 
+Minden módszert lehet úgy vizsgálni, hogy egy ablakot végigcsúsztatunk egy nagyobb márványképen és az ablakon belül meghatározzuk az MGS-t, majd a kapott eredményeknek megnézzük a szórását: ha nagyon nagy, az azt jelenti, hogy túlságosan függ attól, hogy éppen honnan vettük a mintát, ami pedig nem egy szerencsés jelenség.
+
 ![MGS vonal mentén](images/mgs_traverseline.png "MGS vonal mentén")
 
 ![Átmérő hisztogram](images/diameterhist.png "Átmérő hisztogram")
@@ -144,7 +143,6 @@ A GrainAutLine felhasználói felülete fontos, hogy ergonómikus és könnyen h
 
 ![Manuális segítség](images/mergetwins.png "Manuális segítség")
 
-
 ## (Eval) Automatikus pontosság-kiértékelő környezet kialakítása
 
 A GrainAutLine rendszer akkor jó, ha a szemcsehatárokat magától is minél pontosabban meg tudja határozni. Ehhez kell egy automatikus kértékelő keretrendszer, mely előre elkészített tesztképeket megetet a programmal, kiértékelteti őket, majd a mintamegoldással összeveti az eredményeket. A tesztek futtatását minél automatikusabban végzi (akár continuous integration környezetben is) és az eredményekből tömör jelentést generál.
@@ -152,3 +150,9 @@ A GrainAutLine rendszer akkor jó, ha a szemcsehatárokat magától is minél po
 ## (CI) Unit tesztek és continuous integration környezet kialakítása
 
 Mivel sokan dolgoznak a programon, fontos a folyamatos regressziós tesztelés. Bár a fejlesztők mind készítenek unit teszteket a saját részeikhez, ezek összefogása és automatikus futtatása egy continuous integration szerveren (Jenkins) külön is egy megoldandó feladat.
+
+# Egyéb, még be nem sorolt ötletek
+
+* 2D autokorreláció alapú szemcse azonosítás: ha nagyon sok az ikerkristály vonal (van ilyen márvány), akkor a szemcsék abban is különbözhetnek, hogy az ikerkristály vonalak irányai eltérnek bennük. Ehhez egy csúszóablakot végigtolva a képen meg lehet határozni minden pozíciónak az autokorrelációját, majd a hasonló autokorrelációjú helyeket összegyűjteni a képen. (A 2D autokorreláció ebben az esetben egy 2D függvény, mely minden a középponthoz képesti elmozdulásra (pl. x+3, y-4) megmondja, hogy az ott talált érték milyen korrelációban áll a középpont értékéhez képest. Például a párhuzamos vonalak nagyon szépen látszanak egy ilyen függvények (képen), mert a domináns irányban nagy a korreláció, más irányokba pedig jóval kisebb.)
+
+![Sűrű ikerkristályok](images/dense_twins.png "Sűrű ikerkristályok")
