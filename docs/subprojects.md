@@ -4,7 +4,7 @@ layout: default
 
 (This page is meant for hungarian students, that is why it is in Hungarian.)
 
-# Lehetésges témák a GrainAutLine projekt keretében
+# Lehetséges témák a GrainAutLine projekt keretében
 
 Ez az oldal azokat a fő irányvonalakat foglalja össze, melyek mentén önálló labor, szakdolgozat, diplomaterv és szakmai gyakorlat témákat lehet választani.
 

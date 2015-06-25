@@ -1,8 +1,4 @@
----
-layout: default
----
-
-# GrainAutLine user manual #
+# GrainAutLine user manual
 
 This documentation is a summary of the functions of GrainAutLine. They are divided into the following categories:
 
@@ -18,7 +14,7 @@ The PSD is an abstract collection of all information stored at a given time duri
 
 * Original image: this is the starting point.
 * Blobs: our goal is usually to get a separate blob for every grain in the image. Blobs are areas of the image. They may be divided, merged, altered, selected etc.
-* Selection: a subset of the blobs which are currently selected. It is used to mark some blobs for the next operation. 
+* Selection: a subset of the blobs which are currently selected. It is used to mark some blobs for the next operation.
 * Aux: this is a drawing which can be directly modified by the user. It is the input and/or output of several processing steps.
 
 A key concept of GrainAutLine is that every operation performed on the image is a transformation from a PSD into another one. See the processor descriptions and the examples later for further insights.
@@ -41,6 +37,7 @@ The main windows area consists of the following parts:
 * Editor: this is the largest part and it is where the work is done.
 * Processor selector (drop-down list): you can change the active (currently selected) processor here.
 * Processor properties: if the active processor has settings, you can see them here.
+* Supplementary view: to help the drawing, if the mouse is moving, the part of the original image just below the mouse is shown here.
 * Layers: the editor shows its content in several layers. You can toggle their visibility here.
 
 The Layers also have an opacity which may be changed if the mouse is over the layer name. The 0% opacity if full transparency. There is a slight difference in the operation of 99% and 100% opacity: 100% covers everything below it, while 99% introduces a blending which makes deeper layers visible, especially if they also have high opacity. (100%  opaque layers have still a transparent color which does not cover the layers below them.)
@@ -50,8 +47,32 @@ The Layers also have an opacity which may be changed if the mouse is over the la
 The editor blends the visible layers. This means that if there are multiple things visible in the same location, their color is blended.
 
 * The original image preserves its original colors.
-* Blobs are blue. Selected ones are light blue, other ones are darker. (If you choose to make the blobs have different color (see global functions "C" below), unselected blobs will have various blue shades.)
-* Aux is yellow.
+* The Aux layer shows the Aux with yellow.
+* The selection layer shows the selection or its inverse with green, and optionally the border lines with red. See the subsection of selection visualization
+* The Blobs layer uses blue. If you choose to make the blobs have different color (see global functions "C" below), blobs will have various blue shades.
+
+### Selection visualization modes
+
+There are 3 modes for visualizing the set of selected blobs on the Selection layer:
+
+* Normal mode shows the selected blobs with green.
+* Inverted mode shows the unselected blobs with green. This may be useful if you want to see the current blob in full details on the original image, but you still want to know where its boundaries are.
+* Complex mode is like the inverted, but it also shows the border lines with red. This allows you to see the border lines even inside the currently selected blob.
+
+You can change between these modes by pressing F8.
+
+### Selecting blobs
+
+There are two ways to select blobs:
+
+* Ctrl + Left click always toggles the selection of the blob under the mouse.
+* If enabled (toggled by F9), if the right mouse button is pressed, the blob under the mouse will be the single selected one. This allows you fast selection, but does not allow multiple blobs to be selected at the same time.
+
+### Best practices
+
+Currently, the most appropriate selection and visualization mode is the following:
+
+* Inverted or Complex selection visualization (changed by F9), together with selection by right button press and mouse movement (toggled by F8).
 
 ## Global functions
 
@@ -67,6 +88,8 @@ Global functions are always available, independently of the currently selected p
 * M: shows the blobs with the same color.
 * S: selects all blobs
 * U: unselect all blobs
+* F9: changes selection visualization modes (normal, inverted, complex)
+* F8: toggles selection by mouse movement with right button pressed
 
 ## Processors
 
@@ -79,7 +102,7 @@ Takes the input image and applies the ADTS image processing algorithm to retriev
 * Input: Original image
 * Output: Aux
 * Unaffected: Blobs, Selection
-* Parameters: TBD 
+* Parameters: TBD
 
 ### AddSubAux
 
@@ -93,9 +116,11 @@ This processor is the most elementary tool for modifying the blobs. Using this, 
 * Side effects: Selection is cleared as the Blob set may change. Aux is cleared, as it has served its purpose.
 * Parameters:
    * Add: if checked, the Aux is added to the Blobs. Otherwise, the Aux is subtracted.
-   * Move result to Aux: see below 
+   * Move result to Aux: see below
 
-By selecting the "Move result to Aux" checkbox, the above operation is extended with an additional one: the border lines are all moved to the Aux and all blobs are erased. It can be used to edit all borders in the Aux easily. After that, that Aux can be subtracted. As the blobs are removed, the subtraction creates the blob set segmented by the contents of the Aux. 
+By selecting the "Move result to Aux" checkbox, the above operation is extended with an additional one: the border lines are all moved to the Aux and all blobs are erased. It can be used to edit all borders in the Aux easily. After that, that Aux can be subtracted. As the blobs are removed, the subtraction creates the blob set segmented by the contents of the Aux.
+
+By selecting the "Move result to Aux" checkbox, the above operation is extended with an additional one: the border lines are all moved to the Aux and all blobs are erased. It can be used to edit all borders in the Aux easily. After that, that Aux can be subtracted. As the blobs are removed, the subtraction creates the blob set segmented by the contents of the Aux.
 
 ### BlobMerger
 
@@ -123,7 +148,7 @@ Fills the inner holes in the selected blobs. It is used to remove border-like no
 
 Diagnostic processor, not meant to be used in the production environment. The functionality may change arbitrarily. Basically, it is used to retrieve various information about specific locations in the image during debugging of new algorithms.
 
-### Morphology
+### AuxMorphology
 
 Erodes the Aux in a smart way: the lines in the Aux are not allowed to be cut (preserves borders), and the erosion is only applied in areas where the original image is light. Assuming the grain borders to be dark, this processor can clean up drawing mistakes by removing the parts of border lines which are definitely not grain borders.
 
@@ -189,3 +214,12 @@ There may be some further noises inside the blobs, so you may want to select som
 * Select and run the processor "Fill Holes".
 
 Now you have a clean set of blobs which represent the grains in the image. This can be used for further statistical and classification tasks, but they are out of scope of the GrainAutLine application.
+
+### Compare results with older PSD and apply corrections
+
+* Load the reference PSD you do not want to modify.
+* Select the PsdCompare processor and run it. It will store the reference PSD.
+* Load the other PSD you want to edit during the comparison.
+* Move all borders into the Aux (so you can edit them): with an empty Aux, select the AddSubAux processor, select the property "Move result to aux" and run a subtraction. (This will subtract nothing, but after that, move all the boundaries to the Aux.)
+* Select the PsdCompare processor. (Currently, you need to run it with unchecked "Store referenced PSD" to make the reference appear.)
+* Modify layer opacities as follows: turn off Blobs and Selection, make Original image half transparent (makes it darker). Now you can work on Aux to apply corrections while seeing the reference on the layer "refPSD".
