@@ -103,6 +103,16 @@ A szemehatárok megharározásánál az ikerkristályokat alapvetően zavaró za
 
 ![Ikerkristályok](images/twins_aux.png "Ikerkristályok")
 
+## (TwinSymm) Ikerkristályosodás azonosítása középponti szimmentria alapján
+
+Az ikerkristályosodás miatt létrejövő alakzatok tipikusan keskeny paralelogrammák. Ezeket a középponti szimmentriájuk alapján is érdemes megpróbálni felismerni, mivel van olyan ponjuk, amire nagyon szépen szimmetrikusak. Ehhez meg kell keresni azokat a pontokat, melyekre igaz, hogy sok átellenes irányban ugyanolyan messze van az első sötét pont.
+
+Egy gyorsítási lehetőségként ki lehet használni, hogy bár általános esetben ezek a pontok nem a szélektől legtávolabbi (vagyis belül, a középvonal mentén lévő) pontokon vannak, az ikerkristályok esetében ez jó eséllyel teljesül, vagyis a distance transformation eredményének szélső értékeinél érdemes keresni. (A distance transformation minden pixelre megadja, hogy milyen messze van tőle a legközelebbi akadály, vagyis mekkora a sugara az ebbe a pontba mint középpontba beírható legnagyobb kör sugara. Ráadásul trükkösen implementálva ez a művelet meglepően gyors.)
+
+Az alábbi képen egy első körös kísérlet eredménye látható, melyen minél világosabb egy pont, annál jobb szimmentria középpont (egy kezdetleges implementáció szerint).
+
+![Szimmetria középpontok keresése](images/TwinSymm1.png "Szimmetria középpontok keresése")
+
 ## (MGS) MGS kiértékelési módszerek összehasonlítása
 
 A Maximal Grain Size egy gyakran használt mérték a márványok eredetének azonosítására. Meghatározása sokszor szemmel, mikroszkópon keresztül történik (tipikus nagyságrendje 0.5-2 mm). Viszont ha a szemcseméretet egy valószínűségi változónak tekintjük, akkor a maximumot megkeresni nem túl nyerő dolog: ha csak egyetlen nagy szemcse is valahogy bekerül a csiszolatba, de egyébként egyáltalán nem jellemző a mintára, akkor téves következtetéseket vonhatunk le.
