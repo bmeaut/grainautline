@@ -42,14 +42,23 @@ The main windows area consists of the following parts:
 
 The Layers also have an opacity which may be changed if the mouse is over the layer name. The 0% opacity if full transparency. There is a slight difference in the operation of 99% and 100% opacity: 100% covers everything below it, while 99% introduces a blending which makes deeper layers visible, especially if they also have high opacity. (100%  opaque layers have still a transparent color which does not cover the layers below them.)
 
+### Pan and zoom in the editor
+
+You can zoom with Ctrl-Scroll and move the image with the middle mouse button.
+
 ### Colors used in the editor area
 
 The editor blends the visible layers. This means that if there are multiple things visible in the same location, their color is blended.
 
 * The original image preserves its original colors.
-* The Aux layer shows the Aux with yellow.
-* The selection layer shows the selection or its inverse with green, and optionally the border lines with red. See the subsection of selection visualization
-* The Blobs layer uses blue. If you choose to make the blobs have different color (see global functions "C" below), blobs will have various blue shades.
+* Yellow: the Aux layer shows the Aux with yellow.
+* Green. red: the selection layer shows the selection or its inverse with green, and optionally the border lines with red. See the subsection of selection visualization.
+* Blue: the Blobs layer uses blue. If you choose to make the blobs have different color (see global functions "C" below), blobs will have various blue shades.
+
+Blobs can be shown in different colors:
+
+* C: starts color mode, pressed multiple times rotates the blob color assignments
+* M: returns to monochrome mode 
 
 ### Selection visualization modes
 
@@ -59,14 +68,16 @@ There are 3 modes for visualizing the set of selected blobs on the Selection lay
 * Inverted mode shows the unselected blobs with green. This may be useful if you want to see the current blob in full details on the original image, but you still want to know where its boundaries are.
 * Complex mode is like the inverted, but it also shows the border lines with red. This allows you to see the border lines even inside the currently selected blob.
 
-You can change between these modes by pressing F8.
+You can change between these modes by pressing F9.
 
 ### Selecting blobs
 
 There are two ways to select blobs:
 
 * Ctrl + Left click always toggles the selection of the blob under the mouse.
-* If enabled (toggled by F9), if the right mouse button is pressed, the blob under the mouse will be the single selected one. This allows you fast selection, but does not allow multiple blobs to be selected at the same time.
+* If enabled (toggled by F8), if the right mouse button is pressed, the blob under the mouse will be the single selected one. This allows you fast selection, but does not allow multiple blobs to be selected at the same time.
+* S: Selects all blobs
+* U: Unselects all blobs
 
 ### Best practices
 
