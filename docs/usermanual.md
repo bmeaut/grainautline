@@ -96,6 +96,7 @@ Global functions are always available, independently of the currently selected p
 * Shift+Click: Hold down the shift key and a mouse button to draw on the Aux.
    * Shift+LClick: draw on Aux
    * Shift+RClick: erase from Aux
+* Del: clears the Aux.
 * Ctrl+LClick: toggle selection of the blob under the mouse
 * Delete key clears the entire Aux.
 * If the right mouse button is pressed and the mouse is moved, the blob under the mouse is highlighted. This is meant to make the boundaries easier to see.
