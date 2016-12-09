@@ -62,7 +62,7 @@ The editor blends the visible layers. This means that if there are multiple thin
 Blobs can be shown in different colors:
 
 * C: starts color mode, pressed multiple times rotates the blob color assignments
-* M: returns to monochrome mode 
+* M: returns to monochrome mode
 
 ### Selection visualization modes
 
@@ -87,7 +87,7 @@ There are two ways to select blobs:
 
 Currently, the most appropriate selection and visualization mode is the following:
 
-* Inverted or Complex selection visualization (changed by F9), together with selection by right button press and mouse movement (toggled by F8).
+* Inverted or Complex selection visualization (changed by F9), together with selection by right button press and mouse movement (toggled by F8). Make the Blobs layer invisible (inverted selection layer will show them), and the selection layer transparent (so that the original image remains visible).
 
 ## Global functions
 
